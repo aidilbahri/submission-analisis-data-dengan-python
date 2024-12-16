@@ -10,24 +10,17 @@ import numpy as np
 
 st.set_page_config(layout="wide")
 
+# GeoJSON Data
 geojson_url = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson"
 geojson_data = requests.get(geojson_url).json()
 
-# Load datasets
-@st.cache
-def load_data():
-    customers_dataset_df = pd.read_csv('data/customers_dataset.csv')  # Path relatif
-    orders_dataset_df = pd.read_csv('data/orders_dataset.csv')        # Path relatif
-    order_items_dataset_df = pd.read_csv('data/order_items_dataset.csv')  # Path relatif
-    return customers_dataset_df, orders_dataset_df, order_items_dataset_df
-
-customers_dataset_df, orders_dataset_df, order_items_dataset_df = load_data()
-
-# Gabungkan dataframe
-all_df = pd.read_csv('/data/all_df.csv')
-
-# Menampilkan DataFrame di Streamlit (tanpa menyalin ke clipboard)
-st.write(all_df.head())
+# File Uploader untuk Dataset
+uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
+if uploaded_file is not None:
+    all_df = pd.read_csv(uploaded_file)
+else:
+    st.warning("No file uploaded")
+    st.stop()
 
 # Konversi kolom tanggal ke format datetime
 all_df['order_purchase_timestamp'] = pd.to_datetime(all_df['order_purchase_timestamp'])
