@@ -16,9 +16,9 @@ geojson_data = requests.get(geojson_url).json()
 # Load datasets
 @st.cache
 def load_data():
-    customers_dataset_df = pd.read_csv('/data/customers_dataset.csv')
-    orders_dataset_df = pd.read_csv('/data/orders_dataset.csv')
-    order_items_dataset_df = pd.read_csv('/data/order_items_dataset.csv')
+    customers_dataset_df = pd.read_csv('data/customers_dataset.csv')  # Path relatif
+    orders_dataset_df = pd.read_csv('data/orders_dataset.csv')        # Path relatif
+    order_items_dataset_df = pd.read_csv('data/order_items_dataset.csv')  # Path relatif
     return customers_dataset_df, orders_dataset_df, order_items_dataset_df
 
 customers_dataset_df, orders_dataset_df, order_items_dataset_df = load_data()
