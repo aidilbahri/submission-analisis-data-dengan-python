@@ -54,8 +54,8 @@ with tab1:
     ]
 
     # Mengelompokkan data penjualan berdasarkan state
-    state_sales = filtered_df.groupby('customer_state')['price_x'].sum().reset_index()
-    state_sales.rename(columns={'customer_state': 'state', 'price_x': 'sales'}, inplace=True)
+    state_sales = filtered_df.groupby('customer_state')['price'].sum().reset_index()
+    state_sales.rename(columns={'customer_state': 'state', 'price': 'sales'}, inplace=True)
 
 
     # Membuat peta Folium
@@ -82,8 +82,8 @@ with tab2:
     st.header("Bar Chart Kota dengan Penjualan Tertinggi")
     
     
-    city_sales = filtered_df.groupby('customer_city')['price_x'].sum().reset_index()
-    city_sales.rename(columns={'customer_city': 'city', 'price_x': 'sales'}, inplace=True)
+    city_sales = filtered_df.groupby('customer_city')['price'].sum().reset_index()
+    city_sales.rename(columns={'customer_city': 'city', 'price': 'sales'}, inplace=True)
     
     top_7_cities = city_sales.sort_values('sales', ascending=False).head(7)
     
