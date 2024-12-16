@@ -15,7 +15,7 @@ geojson_url = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/
 geojson_data = requests.get(geojson_url).json()
 
 # URL untuk file CSV yang ada di GitHub
-csv_url = https://raw.githubusercontent.com/aidilbahri/submission-analisis-data-dengan-python/refs/heads/main/data/all_df.csv
+csv_url = "https://raw.githubusercontent.com/aidilbahri/submission-analisis-data-dengan-python/refs/heads/main/data/all_df.csv"
 
 # Membaca file CSV langsung dari URL
 all_df = pd.read_csv(csv_url)
