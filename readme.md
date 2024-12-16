@@ -8,7 +8,7 @@
    - `customers_dataset.csv`
    - `orders_dataset.csv`
    - `order_items_dataset.csv`
-   - `all_df.csv`
+   - `table-data.csv`
 
 2. Instal dependensi yang diperlukan:
    ```bash
