@@ -16,17 +16,18 @@ geojson_data = requests.get(geojson_url).json()
 # Load datasets
 @st.cache
 def load_data():
-    customers_dataset_df = pd.read_csv('data/customers_dataset.csv')
-    orders_dataset_df = pd.read_csv('data/orders_dataset.csv')
-    order_items_dataset_df = pd.read_csv('data/order_items_dataset.csv')
+    customers_dataset_df = pd.read_csv('/data/customers_dataset.csv')
+    orders_dataset_df = pd.read_csv('/data/orders_dataset.csv')
+    order_items_dataset_df = pd.read_csv('/data/order_items_dataset.csv')
     return customers_dataset_df, orders_dataset_df, order_items_dataset_df
 
 customers_dataset_df, orders_dataset_df, order_items_dataset_df = load_data()
 
 # Gabungkan dataframe
-all_df = pd.read_csv('data/all_df.csv')
+all_df = pd.read_csv('/data/all_df.csv')
 
-all_df.to_clipboard()
+# Menampilkan DataFrame di Streamlit (tanpa menyalin ke clipboard)
+st.write(all_df.head())
 
 # Konversi kolom tanggal ke format datetime
 all_df['order_purchase_timestamp'] = pd.to_datetime(all_df['order_purchase_timestamp'])
@@ -41,10 +42,10 @@ with tab1:
     # Membuat daftar opsi untuk selectbox (2016-09 hingga 2018-07)
     date_range = pd.date_range(start='2016-09', end='2018-08', freq='M').strftime('%Y-%m').tolist()
 
-# Membuat dropdown untuk memilih periode waktu
+    # Membuat dropdown untuk memilih periode waktu
     selected_date = st.sidebar.selectbox("Pilih Periode (YYYY-MM)", date_range)
 
-# Memisahkan tahun dan bulan dari selected_date
+    # Memisahkan tahun dan bulan dari selected_date
     selected_year, selected_month = map(int, selected_date.split('-'))
 
     # Filter data berdasarkan bulan dan tahun yang dipilih
@@ -56,7 +57,6 @@ with tab1:
     # Mengelompokkan data penjualan berdasarkan state
     state_sales = filtered_df.groupby('customer_state')['price'].sum().reset_index()
     state_sales.rename(columns={'customer_state': 'state', 'price': 'sales'}, inplace=True)
-
 
     # Membuat peta Folium
     map_center = [-14.2350, -51.9253]  # Koordinat Brasil
@@ -74,13 +74,11 @@ with tab1:
         legend_name=f'Total Sales for {selected_month}/{selected_year}'
     ).add_to(m)
 
-
     st_folium(m, width=800, height=500)
 
 # --- Tab 2: Bar Chart Kota dengan Penjualan Tertinggi ---
 with tab2:
     st.header("Bar Chart Kota dengan Penjualan Tertinggi")
-    
     
     city_sales = filtered_df.groupby('customer_city')['price'].sum().reset_index()
     city_sales.rename(columns={'customer_city': 'city', 'price': 'sales'}, inplace=True)
