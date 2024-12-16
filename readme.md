@@ -16,10 +16,11 @@
    ```
 
 ## Cara Menjalankan Aplikasi
-1. Buka terminal atau command prompt
-2. Navigasi ke direktori proyek
-3. Jalankan perintah:
+1. Jalankan `notebook.ipynb` sampai selesai
+2. Buka terminal atau command prompt
+3. Navigasi ke direktori proyek
+4. Jalankan perintah:
    ```bash
    streamlit run dashboard.py
    ```
-4. Aplikasi akan terbuka otomatis di browser default Anda
+5. Aplikasi akan terbuka otomatis di browser default Anda
