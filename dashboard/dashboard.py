@@ -14,13 +14,11 @@ st.set_page_config(layout="wide")
 geojson_url = "https://raw.githubusercontent.com/codeforamerica/click_that_hood/master/public/data/brazil-states.geojson"
 geojson_data = requests.get(geojson_url).json()
 
-# File Uploader untuk Dataset
-uploaded_file = st.file_uploader("Choose a CSV file", type="csv")
-if uploaded_file is not None:
-    all_df = pd.read_csv(uploaded_file)
-else:
-    st.warning("No file uploaded")
-    st.stop()
+# URL untuk file CSV yang ada di GitHub
+csv_url = "https://raw.githubusercontent.com/username/repository/branch/data/all_df.csv"
+
+# Membaca file CSV langsung dari URL
+all_df = pd.read_csv(csv_url)
 
 # Konversi kolom tanggal ke format datetime
 all_df['order_purchase_timestamp'] = pd.to_datetime(all_df['order_purchase_timestamp'])
